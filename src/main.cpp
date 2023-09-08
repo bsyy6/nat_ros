@@ -123,7 +123,7 @@ int main(int argc, char **argv){
     
     server.setDataHandler(OptiTrack::customDataHandler);
     
-    //
+   
     
     server.SearchAndConnect();
     
