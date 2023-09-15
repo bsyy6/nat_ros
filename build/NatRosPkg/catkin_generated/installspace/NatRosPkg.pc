@@ -1,0 +1,8 @@
+prefix=/home/ahalab/NatRos/install
+
+Name: NatRosPkg
+Description: Description of NatRosPkg
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: 

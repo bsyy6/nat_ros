@@ -1,0 +1,33 @@
+
+(cl:in-package :asdf)
+
+(defsystem "NatRosPkg-msg"
+  :depends-on (:roslisp-msg-protocol :roslisp-utils :geometry_msgs-msg
+               :std_msgs-msg
+)
+  :components ((:file "_package")
+    (:file "Nat_msg" :depends-on ("_package_Nat_msg"))
+    (:file "_package_Nat_msg" :depends-on ("_package"))
+    (:file "bodies" :depends-on ("_package_bodies"))
+    (:file "_package_bodies" :depends-on ("_package"))
+    (:file "body" :depends-on ("_package_body"))
+    (:file "_package_body" :depends-on ("_package"))
+    (:file "channel" :depends-on ("_package_channel"))
+    (:file "_package_channel" :depends-on ("_package"))
+    (:file "device" :depends-on ("_package_device"))
+    (:file "_package_device" :depends-on ("_package"))
+    (:file "devices" :depends-on ("_package_devices"))
+    (:file "_package_devices" :depends-on ("_package"))
+    (:file "forcePlate" :depends-on ("_package_forcePlate"))
+    (:file "_package_forcePlate" :depends-on ("_package"))
+    (:file "forcePlates" :depends-on ("_package_forcePlates"))
+    (:file "_package_forcePlates" :depends-on ("_package"))
+    (:file "marker" :depends-on ("_package_marker"))
+    (:file "_package_marker" :depends-on ("_package"))
+    (:file "markers" :depends-on ("_package_markers"))
+    (:file "_package_markers" :depends-on ("_package"))
+    (:file "skeleton" :depends-on ("_package_skeleton"))
+    (:file "_package_skeleton" :depends-on ("_package"))
+    (:file "skeletons" :depends-on ("_package_skeletons"))
+    (:file "_package_skeletons" :depends-on ("_package"))
+  ))
