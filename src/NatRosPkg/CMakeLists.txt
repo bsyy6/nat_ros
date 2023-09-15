@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
 
-
 project(NatRosPkg)
 
 find_package(catkin REQUIRED COMPONENTS
