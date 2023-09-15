@@ -23,13 +23,15 @@ ros/message_operations.h
 -
 std_msgs/Header.h
 -
+NatRosPkg/markers.h
+-
 NatRosPkg/bodies.h
 -
 NatRosPkg/skeletons.h
 -
 NatRosPkg/devices.h
 -
-NatRosPkg/markers.h
+NatRosPkg/devices.h
 -
 
 /home/ahalab/NatRos/devel/include/NatRosPkg/bodies.h
@@ -253,13 +255,13 @@ NatRosPkg/skeletons.h
 -
 NatRosPkg/channel.h
 -
-NatRosPkg/device.h
--
-NatRosPkg/devices.h
--
 NatRosPkg/forcePlate.h
 -
 NatRosPkg/forcePlates.h
+-
+NatRosPkg/device.h
+-
+NatRosPkg/devices.h
 -
 
 /home/ahalab/NatRos/src/NatRosPkg/include/NatNetTypes.h
@@ -304,6 +306,8 @@ NatServer.h
 NatNetRosMsgs.h
 -
 thread
+-
+map
 -
 
 /opt/ros/noetic/include/geometry_msgs/Point.h

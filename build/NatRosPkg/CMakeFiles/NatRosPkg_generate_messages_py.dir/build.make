@@ -70,19 +70,19 @@ NatRosPkg/CMakeFiles/NatRosPkg_generate_messages_py: /home/ahalab/NatRos/devel/l
 
 /home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_Nat_msg.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
 /home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_Nat_msg.py: /home/ahalab/NatRos/src/NatRosPkg/msg/Nat_msg.msg
-/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_Nat_msg.py: /home/ahalab/NatRos/src/NatRosPkg/msg/skeleton.msg
-/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_Nat_msg.py: /home/ahalab/NatRos/src/NatRosPkg/msg/markers.msg
-/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_Nat_msg.py: /home/ahalab/NatRos/src/NatRosPkg/msg/skeletons.msg
-/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_Nat_msg.py: /home/ahalab/NatRos/src/NatRosPkg/msg/channel.msg
-/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_Nat_msg.py: /home/ahalab/NatRos/src/NatRosPkg/msg/bodies.msg
-/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_Nat_msg.py: /home/ahalab/NatRos/src/NatRosPkg/msg/devices.msg
-/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_Nat_msg.py: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_Nat_msg.py: /home/ahalab/NatRos/src/NatRosPkg/msg/marker.msg
-/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_Nat_msg.py: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
-/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_Nat_msg.py: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
-/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_Nat_msg.py: /home/ahalab/NatRos/src/NatRosPkg/msg/body.msg
-/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_Nat_msg.py: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
 /home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_Nat_msg.py: /home/ahalab/NatRos/src/NatRosPkg/msg/device.msg
+/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_Nat_msg.py: /home/ahalab/NatRos/src/NatRosPkg/msg/markers.msg
+/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_Nat_msg.py: /home/ahalab/NatRos/src/NatRosPkg/msg/marker.msg
+/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_Nat_msg.py: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
+/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_Nat_msg.py: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
+/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_Nat_msg.py: /home/ahalab/NatRos/src/NatRosPkg/msg/skeletons.msg
+/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_Nat_msg.py: /home/ahalab/NatRos/src/NatRosPkg/msg/body.msg
+/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_Nat_msg.py: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_Nat_msg.py: /home/ahalab/NatRos/src/NatRosPkg/msg/devices.msg
+/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_Nat_msg.py: /home/ahalab/NatRos/src/NatRosPkg/msg/skeleton.msg
+/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_Nat_msg.py: /home/ahalab/NatRos/src/NatRosPkg/msg/channel.msg
+/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_Nat_msg.py: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_Nat_msg.py: /home/ahalab/NatRos/src/NatRosPkg/msg/bodies.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ahalab/NatRos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python from MSG NatRosPkg/Nat_msg"
 	cd /home/ahalab/NatRos/build/NatRosPkg && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/ahalab/NatRos/src/NatRosPkg/msg/Nat_msg.msg -INatRosPkg:/home/ahalab/NatRos/src/NatRosPkg/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p NatRosPkg -o /home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg
 
@@ -142,8 +142,8 @@ NatRosPkg/CMakeFiles/NatRosPkg_generate_messages_py: /home/ahalab/NatRos/devel/l
 
 /home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_markers.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
 /home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_markers.py: /home/ahalab/NatRos/src/NatRosPkg/msg/markers.msg
-/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_markers.py: /home/ahalab/NatRos/src/NatRosPkg/msg/marker.msg
 /home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_markers.py: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_markers.py: /home/ahalab/NatRos/src/NatRosPkg/msg/marker.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ahalab/NatRos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Generating Python from MSG NatRosPkg/markers"
 	cd /home/ahalab/NatRos/build/NatRosPkg && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/ahalab/NatRos/src/NatRosPkg/msg/markers.msg -INatRosPkg:/home/ahalab/NatRos/src/NatRosPkg/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p NatRosPkg -o /home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg
 
@@ -158,11 +158,11 @@ NatRosPkg/CMakeFiles/NatRosPkg_generate_messages_py: /home/ahalab/NatRos/devel/l
 
 /home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_skeletons.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
 /home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_skeletons.py: /home/ahalab/NatRos/src/NatRosPkg/msg/skeletons.msg
-/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_skeletons.py: /home/ahalab/NatRos/src/NatRosPkg/msg/skeleton.msg
-/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_skeletons.py: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_skeletons.py: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
 /home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_skeletons.py: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
 /home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_skeletons.py: /home/ahalab/NatRos/src/NatRosPkg/msg/body.msg
-/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_skeletons.py: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
+/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_skeletons.py: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg/_skeletons.py: /home/ahalab/NatRos/src/NatRosPkg/msg/skeleton.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ahalab/NatRos/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Generating Python from MSG NatRosPkg/skeletons"
 	cd /home/ahalab/NatRos/build/NatRosPkg && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/ahalab/NatRos/src/NatRosPkg/msg/skeletons.msg -INatRosPkg:/home/ahalab/NatRos/src/NatRosPkg/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p NatRosPkg -o /home/ahalab/NatRos/devel/lib/python3/dist-packages/NatRosPkg/msg
 

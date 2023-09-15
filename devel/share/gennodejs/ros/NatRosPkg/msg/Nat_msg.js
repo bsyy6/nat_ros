@@ -11,10 +11,10 @@ const _deserializer = _ros_msg_utils.Deserialize;
 const _arrayDeserializer = _deserializer.Array;
 const _finder = _ros_msg_utils.Find;
 const _getByteLength = _ros_msg_utils.getByteLength;
+let markers = require('./markers.js');
 let bodies = require('./bodies.js');
 let skeletons = require('./skeletons.js');
 let devices = require('./devices.js');
-let markers = require('./markers.js');
 let std_msgs = _finder('std_msgs');
 
 //-----------------------------------------------------------
@@ -30,10 +30,11 @@ class Nat_msg {
       this.Nat_server_timeStamp = null;
       this.Nat_server_timeCode = null;
       this.Nat_server_frameID = null;
+      this.markers = null;
       this.bodies = null;
       this.skeletons = null;
       this.devices = null;
-      this.markers = null;
+      this.forcePlates = null;
     }
     else {
       if (initObj.hasOwnProperty('header')) {
@@ -78,6 +79,12 @@ class Nat_msg {
       else {
         this.Nat_server_frameID = 0;
       }
+      if (initObj.hasOwnProperty('markers')) {
+        this.markers = initObj.markers
+      }
+      else {
+        this.markers = new markers();
+      }
       if (initObj.hasOwnProperty('bodies')) {
         this.bodies = initObj.bodies
       }
@@ -96,11 +103,11 @@ class Nat_msg {
       else {
         this.devices = new devices();
       }
-      if (initObj.hasOwnProperty('markers')) {
-        this.markers = initObj.markers
+      if (initObj.hasOwnProperty('forcePlates')) {
+        this.forcePlates = initObj.forcePlates
       }
       else {
-        this.markers = new markers();
+        this.forcePlates = new devices();
       }
     }
   }
@@ -121,14 +128,16 @@ class Nat_msg {
     bufferOffset = _serializer.string(obj.Nat_server_timeCode, buffer, bufferOffset);
     // Serialize message field [Nat_server_frameID]
     bufferOffset = _serializer.int32(obj.Nat_server_frameID, buffer, bufferOffset);
+    // Serialize message field [markers]
+    bufferOffset = markers.serialize(obj.markers, buffer, bufferOffset);
     // Serialize message field [bodies]
     bufferOffset = bodies.serialize(obj.bodies, buffer, bufferOffset);
     // Serialize message field [skeletons]
     bufferOffset = skeletons.serialize(obj.skeletons, buffer, bufferOffset);
     // Serialize message field [devices]
     bufferOffset = devices.serialize(obj.devices, buffer, bufferOffset);
-    // Serialize message field [markers]
-    bufferOffset = markers.serialize(obj.markers, buffer, bufferOffset);
+    // Serialize message field [forcePlates]
+    bufferOffset = devices.serialize(obj.forcePlates, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -150,14 +159,16 @@ class Nat_msg {
     data.Nat_server_timeCode = _deserializer.string(buffer, bufferOffset);
     // Deserialize message field [Nat_server_frameID]
     data.Nat_server_frameID = _deserializer.int32(buffer, bufferOffset);
+    // Deserialize message field [markers]
+    data.markers = markers.deserialize(buffer, bufferOffset);
     // Deserialize message field [bodies]
     data.bodies = bodies.deserialize(buffer, bufferOffset);
     // Deserialize message field [skeletons]
     data.skeletons = skeletons.deserialize(buffer, bufferOffset);
     // Deserialize message field [devices]
     data.devices = devices.deserialize(buffer, bufferOffset);
-    // Deserialize message field [markers]
-    data.markers = markers.deserialize(buffer, bufferOffset);
+    // Deserialize message field [forcePlates]
+    data.forcePlates = devices.deserialize(buffer, bufferOffset);
     return data;
   }
 
@@ -165,10 +176,11 @@ class Nat_msg {
     let length = 0;
     length += std_msgs.msg.Header.getMessageSize(object.header);
     length += _getByteLength(object.Nat_server_timeCode);
+    length += markers.getMessageSize(object.markers);
     length += bodies.getMessageSize(object.bodies);
     length += skeletons.getMessageSize(object.skeletons);
     length += devices.getMessageSize(object.devices);
-    length += markers.getMessageSize(object.markers);
+    length += devices.getMessageSize(object.forcePlates);
     return length + 40;
   }
 
@@ -179,7 +191,7 @@ class Nat_msg {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '28ff3ba526904bef9489d112dfa437c3';
+    return '9aee2c807a0b367d51433da0cfa4687e';
   }
 
   static messageDefinition() {
@@ -196,11 +208,11 @@ class Nat_msg {
     
     int32 Nat_server_frameID
     
+    markers markers
     bodies bodies
     skeletons skeletons
     devices devices
-    markers markers
-    
+    devices forcePlates
     ================================================================================
     MSG: std_msgs/Header
     # Standard metadata for higher-level stamped data types.
@@ -216,6 +228,33 @@ class Nat_msg {
     time stamp
     #Frame this data is associated with
     string frame_id
+    
+    ================================================================================
+    MSG: NatRosPkg/markers
+    int32 nMarkers
+    marker[] markers
+    ================================================================================
+    MSG: NatRosPkg/marker
+    int32 ID
+    int32 modelID
+    geometry_msgs/Point position
+    float64 size
+    int16 params
+    float64 residual
+    
+    
+    bool oclluded 
+    bool PCSolved 
+    bool ModelSolved 
+    bool HasModel 
+    bool Unlabled 
+    bool ActiveMarker 
+    ================================================================================
+    MSG: geometry_msgs/Point
+    # This contains the position of a point in free space
+    float64 x
+    float64 y
+    float64 z
     
     ================================================================================
     MSG: NatRosPkg/bodies
@@ -238,13 +277,6 @@ class Nat_msg {
     # A representation of pose in free space, composed of position and orientation. 
     Point position
     Quaternion orientation
-    
-    ================================================================================
-    MSG: geometry_msgs/Point
-    # This contains the position of a point in free space
-    float64 x
-    float64 y
-    float64 z
     
     ================================================================================
     MSG: geometry_msgs/Quaternion
@@ -282,26 +314,6 @@ class Nat_msg {
     bool isEmpty
     bool isPartial
     
-    ================================================================================
-    MSG: NatRosPkg/markers
-    int32 nMarkers
-    marker[] markers
-    ================================================================================
-    MSG: NatRosPkg/marker
-    int32 ID
-    int32 modelID
-    geometry_msgs/Point position
-    float64 size
-    int16 params
-    float64 residual
-    
-    
-    bool oclluded 
-    bool PCSolved 
-    bool ModelSolved 
-    bool HasModel 
-    bool Unlabled 
-    bool ActiveMarker 
     `;
   }
 
@@ -360,6 +372,13 @@ class Nat_msg {
       resolved.Nat_server_frameID = 0
     }
 
+    if (msg.markers !== undefined) {
+      resolved.markers = markers.Resolve(msg.markers)
+    }
+    else {
+      resolved.markers = new markers()
+    }
+
     if (msg.bodies !== undefined) {
       resolved.bodies = bodies.Resolve(msg.bodies)
     }
@@ -381,11 +400,11 @@ class Nat_msg {
       resolved.devices = new devices()
     }
 
-    if (msg.markers !== undefined) {
-      resolved.markers = markers.Resolve(msg.markers)
+    if (msg.forcePlates !== undefined) {
+      resolved.forcePlates = devices.Resolve(msg.forcePlates)
     }
     else {
-      resolved.markers = new markers()
+      resolved.forcePlates = new devices()
     }
 
     return resolved;

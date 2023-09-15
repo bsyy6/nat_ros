@@ -11,7 +11,7 @@ import geometry_msgs.msg
 import std_msgs.msg
 
 class Nat_msg(genpy.Message):
-  _md5sum = "28ff3ba526904bef9489d112dfa437c3"
+  _md5sum = "9aee2c807a0b367d51433da0cfa4687e"
   _type = "NatRosPkg/Nat_msg"
   _has_header = True  # flag to mark the presence of a Header object
   _full_text = """Header header
@@ -25,11 +25,11 @@ string Nat_server_timeCode
 
 int32 Nat_server_frameID
 
+markers markers
 bodies bodies
 skeletons skeletons
 devices devices
-markers markers
-
+devices forcePlates
 ================================================================================
 MSG: std_msgs/Header
 # Standard metadata for higher-level stamped data types.
@@ -45,6 +45,33 @@ uint32 seq
 time stamp
 #Frame this data is associated with
 string frame_id
+
+================================================================================
+MSG: NatRosPkg/markers
+int32 nMarkers
+marker[] markers
+================================================================================
+MSG: NatRosPkg/marker
+int32 ID
+int32 modelID
+geometry_msgs/Point position
+float64 size
+int16 params
+float64 residual
+
+
+bool oclluded 
+bool PCSolved 
+bool ModelSolved 
+bool HasModel 
+bool Unlabled 
+bool ActiveMarker 
+================================================================================
+MSG: geometry_msgs/Point
+# This contains the position of a point in free space
+float64 x
+float64 y
+float64 z
 
 ================================================================================
 MSG: NatRosPkg/bodies
@@ -67,13 +94,6 @@ MSG: geometry_msgs/Pose
 # A representation of pose in free space, composed of position and orientation. 
 Point position
 Quaternion orientation
-
-================================================================================
-MSG: geometry_msgs/Point
-# This contains the position of a point in free space
-float64 x
-float64 y
-float64 z
 
 ================================================================================
 MSG: geometry_msgs/Quaternion
@@ -110,29 +130,9 @@ int32 nFrames
 float64[] Values
 bool isEmpty
 bool isPartial
-
-================================================================================
-MSG: NatRosPkg/markers
-int32 nMarkers
-marker[] markers
-================================================================================
-MSG: NatRosPkg/marker
-int32 ID
-int32 modelID
-geometry_msgs/Point position
-float64 size
-int16 params
-float64 residual
-
-
-bool oclluded 
-bool PCSolved 
-bool ModelSolved 
-bool HasModel 
-bool Unlabled 
-bool ActiveMarker """
-  __slots__ = ['header','Nat_server_systemLatencyMillisec','Nat_server_clientLatencyMillisec','Nat_server_transitLatencyMillisec','Nat_server_timeStamp','Nat_server_timeCode','Nat_server_frameID','bodies','skeletons','devices','markers']
-  _slot_types = ['std_msgs/Header','float64','float64','float64','float64','string','int32','NatRosPkg/bodies','NatRosPkg/skeletons','NatRosPkg/devices','NatRosPkg/markers']
+"""
+  __slots__ = ['header','Nat_server_systemLatencyMillisec','Nat_server_clientLatencyMillisec','Nat_server_transitLatencyMillisec','Nat_server_timeStamp','Nat_server_timeCode','Nat_server_frameID','markers','bodies','skeletons','devices','forcePlates']
+  _slot_types = ['std_msgs/Header','float64','float64','float64','float64','string','int32','NatRosPkg/markers','NatRosPkg/bodies','NatRosPkg/skeletons','NatRosPkg/devices','NatRosPkg/devices']
 
   def __init__(self, *args, **kwds):
     """
@@ -142,7 +142,7 @@ bool ActiveMarker """
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       header,Nat_server_systemLatencyMillisec,Nat_server_clientLatencyMillisec,Nat_server_transitLatencyMillisec,Nat_server_timeStamp,Nat_server_timeCode,Nat_server_frameID,bodies,skeletons,devices,markers
+       header,Nat_server_systemLatencyMillisec,Nat_server_clientLatencyMillisec,Nat_server_transitLatencyMillisec,Nat_server_timeStamp,Nat_server_timeCode,Nat_server_frameID,markers,bodies,skeletons,devices,forcePlates
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -165,14 +165,16 @@ bool ActiveMarker """
         self.Nat_server_timeCode = ''
       if self.Nat_server_frameID is None:
         self.Nat_server_frameID = 0
+      if self.markers is None:
+        self.markers = NatRosPkg.msg.markers()
       if self.bodies is None:
         self.bodies = NatRosPkg.msg.bodies()
       if self.skeletons is None:
         self.skeletons = NatRosPkg.msg.skeletons()
       if self.devices is None:
         self.devices = NatRosPkg.msg.devices()
-      if self.markers is None:
-        self.markers = NatRosPkg.msg.markers()
+      if self.forcePlates is None:
+        self.forcePlates = NatRosPkg.msg.devices()
     else:
       self.header = std_msgs.msg.Header()
       self.Nat_server_systemLatencyMillisec = 0.
@@ -181,10 +183,11 @@ bool ActiveMarker """
       self.Nat_server_timeStamp = 0.
       self.Nat_server_timeCode = ''
       self.Nat_server_frameID = 0
+      self.markers = NatRosPkg.msg.markers()
       self.bodies = NatRosPkg.msg.bodies()
       self.skeletons = NatRosPkg.msg.skeletons()
       self.devices = NatRosPkg.msg.devices()
-      self.markers = NatRosPkg.msg.markers()
+      self.forcePlates = NatRosPkg.msg.devices()
 
   def _get_types(self):
     """
@@ -215,18 +218,30 @@ bool ActiveMarker """
         length = len(_x)
       buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
       _x = self
-      buff.write(_get_struct_iB().pack(_x.Nat_server_frameID, _x.bodies.nBodies))
+      buff.write(_get_struct_2i().pack(_x.Nat_server_frameID, _x.markers.nMarkers))
+      length = len(self.markers.markers)
+      buff.write(_struct_I.pack(length))
+      for val1 in self.markers.markers:
+        _x = val1
+        buff.write(_get_struct_2i().pack(_x.ID, _x.modelID))
+        _v1 = val1.position
+        _x = _v1
+        buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+        _x = val1
+        buff.write(_get_struct_dhd6B().pack(_x.size, _x.params, _x.residual, _x.oclluded, _x.PCSolved, _x.ModelSolved, _x.HasModel, _x.Unlabled, _x.ActiveMarker))
+      _x = self.bodies.nBodies
+      buff.write(_get_struct_B().pack(_x))
       length = len(self.bodies.bodies)
       buff.write(_struct_I.pack(length))
       for val1 in self.bodies.bodies:
         _x = val1.id
         buff.write(_get_struct_i().pack(_x))
-        _v1 = val1.pose
-        _v2 = _v1.position
-        _x = _v2
-        buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
-        _v3 = _v1.orientation
+        _v2 = val1.pose
+        _v3 = _v2.position
         _x = _v3
+        buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+        _v4 = _v2.orientation
+        _x = _v4
         buff.write(_get_struct_4d().pack(_x.x, _x.y, _x.z, _x.w))
         _x = val1
         buff.write(_get_struct_dBh().pack(_x.meanError, _x.isValid, _x.params))
@@ -248,12 +263,12 @@ bool ActiveMarker """
         for val2 in val1.bodies:
           _x = val2.id
           buff.write(_get_struct_i().pack(_x))
-          _v4 = val2.pose
-          _v5 = _v4.position
-          _x = _v5
-          buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
-          _v6 = _v4.orientation
+          _v5 = val2.pose
+          _v6 = _v5.position
           _x = _v6
+          buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+          _v7 = _v5.orientation
+          _x = _v7
           buff.write(_get_struct_4d().pack(_x.x, _x.y, _x.z, _x.w))
           _x = val2
           buff.write(_get_struct_dBh().pack(_x.meanError, _x.isValid, _x.params))
@@ -275,18 +290,24 @@ bool ActiveMarker """
           buff.write(struct.Struct(pattern).pack(*val2.Values))
           _x = val2
           buff.write(_get_struct_2B().pack(_x.isEmpty, _x.isPartial))
-      _x = self.markers.nMarkers
+      _x = self.forcePlates.nDevices
       buff.write(_get_struct_i().pack(_x))
-      length = len(self.markers.markers)
+      length = len(self.forcePlates.devices)
       buff.write(_struct_I.pack(length))
-      for val1 in self.markers.markers:
+      for val1 in self.forcePlates.devices:
         _x = val1
-        buff.write(_get_struct_2i().pack(_x.ID, _x.modelID))
-        _v7 = val1.position
-        _x = _v7
-        buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
-        _x = val1
-        buff.write(_get_struct_dhd6B().pack(_x.size, _x.params, _x.residual, _x.oclluded, _x.PCSolved, _x.ModelSolved, _x.HasModel, _x.Unlabled, _x.ActiveMarker))
+        buff.write(_get_struct_2ih().pack(_x.id, _x.nChannels, _x.params))
+        length = len(val1.channels)
+        buff.write(_struct_I.pack(length))
+        for val2 in val1.channels:
+          _x = val2.nFrames
+          buff.write(_get_struct_i().pack(_x))
+          length = len(val2.Values)
+          buff.write(_struct_I.pack(length))
+          pattern = '<%sd'%length
+          buff.write(struct.Struct(pattern).pack(*val2.Values))
+          _x = val2
+          buff.write(_get_struct_2B().pack(_x.isEmpty, _x.isPartial))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -300,14 +321,16 @@ bool ActiveMarker """
     try:
       if self.header is None:
         self.header = std_msgs.msg.Header()
+      if self.markers is None:
+        self.markers = NatRosPkg.msg.markers()
       if self.bodies is None:
         self.bodies = NatRosPkg.msg.bodies()
       if self.skeletons is None:
         self.skeletons = NatRosPkg.msg.skeletons()
       if self.devices is None:
         self.devices = NatRosPkg.msg.devices()
-      if self.markers is None:
-        self.markers = NatRosPkg.msg.markers()
+      if self.forcePlates is None:
+        self.forcePlates = NatRosPkg.msg.devices()
       end = 0
       _x = self
       start = end
@@ -337,8 +360,37 @@ bool ActiveMarker """
         self.Nat_server_timeCode = str[start:end]
       _x = self
       start = end
-      end += 5
-      (_x.Nat_server_frameID, _x.bodies.nBodies,) = _get_struct_iB().unpack(str[start:end])
+      end += 8
+      (_x.Nat_server_frameID, _x.markers.nMarkers,) = _get_struct_2i().unpack(str[start:end])
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      self.markers.markers = []
+      for i in range(0, length):
+        val1 = NatRosPkg.msg.marker()
+        _x = val1
+        start = end
+        end += 8
+        (_x.ID, _x.modelID,) = _get_struct_2i().unpack(str[start:end])
+        _v8 = val1.position
+        _x = _v8
+        start = end
+        end += 24
+        (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
+        _x = val1
+        start = end
+        end += 24
+        (_x.size, _x.params, _x.residual, _x.oclluded, _x.PCSolved, _x.ModelSolved, _x.HasModel, _x.Unlabled, _x.ActiveMarker,) = _get_struct_dhd6B().unpack(str[start:end])
+        val1.oclluded = bool(val1.oclluded)
+        val1.PCSolved = bool(val1.PCSolved)
+        val1.ModelSolved = bool(val1.ModelSolved)
+        val1.HasModel = bool(val1.HasModel)
+        val1.Unlabled = bool(val1.Unlabled)
+        val1.ActiveMarker = bool(val1.ActiveMarker)
+        self.markers.markers.append(val1)
+      start = end
+      end += 1
+      (self.bodies.nBodies,) = _get_struct_B().unpack(str[start:end])
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
@@ -348,14 +400,14 @@ bool ActiveMarker """
         start = end
         end += 4
         (val1.id,) = _get_struct_i().unpack(str[start:end])
-        _v8 = val1.pose
-        _v9 = _v8.position
-        _x = _v9
+        _v9 = val1.pose
+        _v10 = _v9.position
+        _x = _v10
         start = end
         end += 24
         (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
-        _v10 = _v8.orientation
-        _x = _v10
+        _v11 = _v9.orientation
+        _x = _v11
         start = end
         end += 32
         (_x.x, _x.y, _x.z, _x.w,) = _get_struct_4d().unpack(str[start:end])
@@ -396,14 +448,14 @@ bool ActiveMarker """
           start = end
           end += 4
           (val2.id,) = _get_struct_i().unpack(str[start:end])
-          _v11 = val2.pose
-          _v12 = _v11.position
-          _x = _v12
+          _v12 = val2.pose
+          _v13 = _v12.position
+          _x = _v13
           start = end
           end += 24
           (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
-          _v13 = _v11.orientation
-          _x = _v13
+          _v14 = _v12.orientation
+          _x = _v14
           start = end
           end += 32
           (_x.x, _x.y, _x.z, _x.w,) = _get_struct_4d().unpack(str[start:end])
@@ -454,33 +506,42 @@ bool ActiveMarker """
         self.devices.devices.append(val1)
       start = end
       end += 4
-      (self.markers.nMarkers,) = _get_struct_i().unpack(str[start:end])
+      (self.forcePlates.nDevices,) = _get_struct_i().unpack(str[start:end])
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
-      self.markers.markers = []
+      self.forcePlates.devices = []
       for i in range(0, length):
-        val1 = NatRosPkg.msg.marker()
+        val1 = NatRosPkg.msg.device()
         _x = val1
         start = end
-        end += 8
-        (_x.ID, _x.modelID,) = _get_struct_2i().unpack(str[start:end])
-        _v14 = val1.position
-        _x = _v14
+        end += 10
+        (_x.id, _x.nChannels, _x.params,) = _get_struct_2ih().unpack(str[start:end])
         start = end
-        end += 24
-        (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
-        _x = val1
-        start = end
-        end += 24
-        (_x.size, _x.params, _x.residual, _x.oclluded, _x.PCSolved, _x.ModelSolved, _x.HasModel, _x.Unlabled, _x.ActiveMarker,) = _get_struct_dhd6B().unpack(str[start:end])
-        val1.oclluded = bool(val1.oclluded)
-        val1.PCSolved = bool(val1.PCSolved)
-        val1.ModelSolved = bool(val1.ModelSolved)
-        val1.HasModel = bool(val1.HasModel)
-        val1.Unlabled = bool(val1.Unlabled)
-        val1.ActiveMarker = bool(val1.ActiveMarker)
-        self.markers.markers.append(val1)
+        end += 4
+        (length,) = _struct_I.unpack(str[start:end])
+        val1.channels = []
+        for i in range(0, length):
+          val2 = NatRosPkg.msg.channel()
+          start = end
+          end += 4
+          (val2.nFrames,) = _get_struct_i().unpack(str[start:end])
+          start = end
+          end += 4
+          (length,) = _struct_I.unpack(str[start:end])
+          pattern = '<%sd'%length
+          start = end
+          s = struct.Struct(pattern)
+          end += s.size
+          val2.Values = s.unpack(str[start:end])
+          _x = val2
+          start = end
+          end += 2
+          (_x.isEmpty, _x.isPartial,) = _get_struct_2B().unpack(str[start:end])
+          val2.isEmpty = bool(val2.isEmpty)
+          val2.isPartial = bool(val2.isPartial)
+          val1.channels.append(val2)
+        self.forcePlates.devices.append(val1)
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -510,18 +571,30 @@ bool ActiveMarker """
         length = len(_x)
       buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
       _x = self
-      buff.write(_get_struct_iB().pack(_x.Nat_server_frameID, _x.bodies.nBodies))
+      buff.write(_get_struct_2i().pack(_x.Nat_server_frameID, _x.markers.nMarkers))
+      length = len(self.markers.markers)
+      buff.write(_struct_I.pack(length))
+      for val1 in self.markers.markers:
+        _x = val1
+        buff.write(_get_struct_2i().pack(_x.ID, _x.modelID))
+        _v15 = val1.position
+        _x = _v15
+        buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+        _x = val1
+        buff.write(_get_struct_dhd6B().pack(_x.size, _x.params, _x.residual, _x.oclluded, _x.PCSolved, _x.ModelSolved, _x.HasModel, _x.Unlabled, _x.ActiveMarker))
+      _x = self.bodies.nBodies
+      buff.write(_get_struct_B().pack(_x))
       length = len(self.bodies.bodies)
       buff.write(_struct_I.pack(length))
       for val1 in self.bodies.bodies:
         _x = val1.id
         buff.write(_get_struct_i().pack(_x))
-        _v15 = val1.pose
-        _v16 = _v15.position
-        _x = _v16
-        buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
-        _v17 = _v15.orientation
+        _v16 = val1.pose
+        _v17 = _v16.position
         _x = _v17
+        buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+        _v18 = _v16.orientation
+        _x = _v18
         buff.write(_get_struct_4d().pack(_x.x, _x.y, _x.z, _x.w))
         _x = val1
         buff.write(_get_struct_dBh().pack(_x.meanError, _x.isValid, _x.params))
@@ -543,12 +616,12 @@ bool ActiveMarker """
         for val2 in val1.bodies:
           _x = val2.id
           buff.write(_get_struct_i().pack(_x))
-          _v18 = val2.pose
-          _v19 = _v18.position
-          _x = _v19
-          buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
-          _v20 = _v18.orientation
+          _v19 = val2.pose
+          _v20 = _v19.position
           _x = _v20
+          buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+          _v21 = _v19.orientation
+          _x = _v21
           buff.write(_get_struct_4d().pack(_x.x, _x.y, _x.z, _x.w))
           _x = val2
           buff.write(_get_struct_dBh().pack(_x.meanError, _x.isValid, _x.params))
@@ -570,18 +643,24 @@ bool ActiveMarker """
           buff.write(val2.Values.tostring())
           _x = val2
           buff.write(_get_struct_2B().pack(_x.isEmpty, _x.isPartial))
-      _x = self.markers.nMarkers
+      _x = self.forcePlates.nDevices
       buff.write(_get_struct_i().pack(_x))
-      length = len(self.markers.markers)
+      length = len(self.forcePlates.devices)
       buff.write(_struct_I.pack(length))
-      for val1 in self.markers.markers:
+      for val1 in self.forcePlates.devices:
         _x = val1
-        buff.write(_get_struct_2i().pack(_x.ID, _x.modelID))
-        _v21 = val1.position
-        _x = _v21
-        buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
-        _x = val1
-        buff.write(_get_struct_dhd6B().pack(_x.size, _x.params, _x.residual, _x.oclluded, _x.PCSolved, _x.ModelSolved, _x.HasModel, _x.Unlabled, _x.ActiveMarker))
+        buff.write(_get_struct_2ih().pack(_x.id, _x.nChannels, _x.params))
+        length = len(val1.channels)
+        buff.write(_struct_I.pack(length))
+        for val2 in val1.channels:
+          _x = val2.nFrames
+          buff.write(_get_struct_i().pack(_x))
+          length = len(val2.Values)
+          buff.write(_struct_I.pack(length))
+          pattern = '<%sd'%length
+          buff.write(val2.Values.tostring())
+          _x = val2
+          buff.write(_get_struct_2B().pack(_x.isEmpty, _x.isPartial))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -596,14 +675,16 @@ bool ActiveMarker """
     try:
       if self.header is None:
         self.header = std_msgs.msg.Header()
+      if self.markers is None:
+        self.markers = NatRosPkg.msg.markers()
       if self.bodies is None:
         self.bodies = NatRosPkg.msg.bodies()
       if self.skeletons is None:
         self.skeletons = NatRosPkg.msg.skeletons()
       if self.devices is None:
         self.devices = NatRosPkg.msg.devices()
-      if self.markers is None:
-        self.markers = NatRosPkg.msg.markers()
+      if self.forcePlates is None:
+        self.forcePlates = NatRosPkg.msg.devices()
       end = 0
       _x = self
       start = end
@@ -633,8 +714,37 @@ bool ActiveMarker """
         self.Nat_server_timeCode = str[start:end]
       _x = self
       start = end
-      end += 5
-      (_x.Nat_server_frameID, _x.bodies.nBodies,) = _get_struct_iB().unpack(str[start:end])
+      end += 8
+      (_x.Nat_server_frameID, _x.markers.nMarkers,) = _get_struct_2i().unpack(str[start:end])
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      self.markers.markers = []
+      for i in range(0, length):
+        val1 = NatRosPkg.msg.marker()
+        _x = val1
+        start = end
+        end += 8
+        (_x.ID, _x.modelID,) = _get_struct_2i().unpack(str[start:end])
+        _v22 = val1.position
+        _x = _v22
+        start = end
+        end += 24
+        (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
+        _x = val1
+        start = end
+        end += 24
+        (_x.size, _x.params, _x.residual, _x.oclluded, _x.PCSolved, _x.ModelSolved, _x.HasModel, _x.Unlabled, _x.ActiveMarker,) = _get_struct_dhd6B().unpack(str[start:end])
+        val1.oclluded = bool(val1.oclluded)
+        val1.PCSolved = bool(val1.PCSolved)
+        val1.ModelSolved = bool(val1.ModelSolved)
+        val1.HasModel = bool(val1.HasModel)
+        val1.Unlabled = bool(val1.Unlabled)
+        val1.ActiveMarker = bool(val1.ActiveMarker)
+        self.markers.markers.append(val1)
+      start = end
+      end += 1
+      (self.bodies.nBodies,) = _get_struct_B().unpack(str[start:end])
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
@@ -644,14 +754,14 @@ bool ActiveMarker """
         start = end
         end += 4
         (val1.id,) = _get_struct_i().unpack(str[start:end])
-        _v22 = val1.pose
-        _v23 = _v22.position
-        _x = _v23
+        _v23 = val1.pose
+        _v24 = _v23.position
+        _x = _v24
         start = end
         end += 24
         (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
-        _v24 = _v22.orientation
-        _x = _v24
+        _v25 = _v23.orientation
+        _x = _v25
         start = end
         end += 32
         (_x.x, _x.y, _x.z, _x.w,) = _get_struct_4d().unpack(str[start:end])
@@ -692,14 +802,14 @@ bool ActiveMarker """
           start = end
           end += 4
           (val2.id,) = _get_struct_i().unpack(str[start:end])
-          _v25 = val2.pose
-          _v26 = _v25.position
-          _x = _v26
+          _v26 = val2.pose
+          _v27 = _v26.position
+          _x = _v27
           start = end
           end += 24
           (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
-          _v27 = _v25.orientation
-          _x = _v27
+          _v28 = _v26.orientation
+          _x = _v28
           start = end
           end += 32
           (_x.x, _x.y, _x.z, _x.w,) = _get_struct_4d().unpack(str[start:end])
@@ -750,33 +860,42 @@ bool ActiveMarker """
         self.devices.devices.append(val1)
       start = end
       end += 4
-      (self.markers.nMarkers,) = _get_struct_i().unpack(str[start:end])
+      (self.forcePlates.nDevices,) = _get_struct_i().unpack(str[start:end])
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
-      self.markers.markers = []
+      self.forcePlates.devices = []
       for i in range(0, length):
-        val1 = NatRosPkg.msg.marker()
+        val1 = NatRosPkg.msg.device()
         _x = val1
         start = end
-        end += 8
-        (_x.ID, _x.modelID,) = _get_struct_2i().unpack(str[start:end])
-        _v28 = val1.position
-        _x = _v28
+        end += 10
+        (_x.id, _x.nChannels, _x.params,) = _get_struct_2ih().unpack(str[start:end])
         start = end
-        end += 24
-        (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
-        _x = val1
-        start = end
-        end += 24
-        (_x.size, _x.params, _x.residual, _x.oclluded, _x.PCSolved, _x.ModelSolved, _x.HasModel, _x.Unlabled, _x.ActiveMarker,) = _get_struct_dhd6B().unpack(str[start:end])
-        val1.oclluded = bool(val1.oclluded)
-        val1.PCSolved = bool(val1.PCSolved)
-        val1.ModelSolved = bool(val1.ModelSolved)
-        val1.HasModel = bool(val1.HasModel)
-        val1.Unlabled = bool(val1.Unlabled)
-        val1.ActiveMarker = bool(val1.ActiveMarker)
-        self.markers.markers.append(val1)
+        end += 4
+        (length,) = _struct_I.unpack(str[start:end])
+        val1.channels = []
+        for i in range(0, length):
+          val2 = NatRosPkg.msg.channel()
+          start = end
+          end += 4
+          (val2.nFrames,) = _get_struct_i().unpack(str[start:end])
+          start = end
+          end += 4
+          (length,) = _struct_I.unpack(str[start:end])
+          pattern = '<%sd'%length
+          start = end
+          s = struct.Struct(pattern)
+          end += s.size
+          val2.Values = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+          _x = val2
+          start = end
+          end += 2
+          (_x.isEmpty, _x.isPartial,) = _get_struct_2B().unpack(str[start:end])
+          val2.isEmpty = bool(val2.isEmpty)
+          val2.isPartial = bool(val2.isPartial)
+          val1.channels.append(val2)
+        self.forcePlates.devices.append(val1)
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -821,6 +940,12 @@ def _get_struct_4d():
     if _struct_4d is None:
         _struct_4d = struct.Struct("<4d")
     return _struct_4d
+_struct_B = None
+def _get_struct_B():
+    global _struct_B
+    if _struct_B is None:
+        _struct_B = struct.Struct("<B")
+    return _struct_B
 _struct_dBh = None
 def _get_struct_dBh():
     global _struct_dBh
@@ -839,9 +964,3 @@ def _get_struct_i():
     if _struct_i is None:
         _struct_i = struct.Struct("<i")
     return _struct_i
-_struct_iB = None
-def _get_struct_iB():
-    global _struct_iB
-    if _struct_iB is None:
-        _struct_iB = struct.Struct("<iB")
-    return _struct_iB

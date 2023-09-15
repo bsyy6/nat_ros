@@ -80,16 +80,16 @@
   "NatRosPkg/forcePlates")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<forcePlates>)))
   "Returns md5sum for a message object of type '<forcePlates>"
-  "d6f3fd8a71f67b5c7a481fa68f4cea97")
+  "9e2204891ff75e6f356bdd61d2c32647")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'forcePlates)))
   "Returns md5sum for a message object of type 'forcePlates"
-  "d6f3fd8a71f67b5c7a481fa68f4cea97")
+  "9e2204891ff75e6f356bdd61d2c32647")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<forcePlates>)))
   "Returns full string definition for message of type '<forcePlates>"
-  (cl:format cl:nil "int32 nForcePlates~%forcePlate[] forcePlates~%================================================================================~%MSG: NatRosPkg/forcePlate~%int32 id~%int32 nChannels ~%int32 params~%channel[] channels~%================================================================================~%MSG: NatRosPkg/channel~%int32 nFrames~%float64[] Values~%bool isEmpty~%bool isPartial~%~%~%"))
+  (cl:format cl:nil "int32 nForcePlates~%forcePlate[] forcePlates~%================================================================================~%MSG: NatRosPkg/forcePlate~%int32 id~%int32 nChannels ~%int16 params~%channel[] channels~%================================================================================~%MSG: NatRosPkg/channel~%int32 nFrames~%float64[] Values~%bool isEmpty~%bool isPartial~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'forcePlates)))
   "Returns full string definition for message of type 'forcePlates"
-  (cl:format cl:nil "int32 nForcePlates~%forcePlate[] forcePlates~%================================================================================~%MSG: NatRosPkg/forcePlate~%int32 id~%int32 nChannels ~%int32 params~%channel[] channels~%================================================================================~%MSG: NatRosPkg/channel~%int32 nFrames~%float64[] Values~%bool isEmpty~%bool isPartial~%~%~%"))
+  (cl:format cl:nil "int32 nForcePlates~%forcePlate[] forcePlates~%================================================================================~%MSG: NatRosPkg/forcePlate~%int32 id~%int32 nChannels ~%int16 params~%channel[] channels~%================================================================================~%MSG: NatRosPkg/channel~%int32 nFrames~%float64[] Values~%bool isEmpty~%bool isPartial~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <forcePlates>))
   (cl:+ 0
      4

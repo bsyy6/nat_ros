@@ -9,7 +9,7 @@ import struct
 import NatRosPkg.msg
 
 class forcePlates(genpy.Message):
-  _md5sum = "d6f3fd8a71f67b5c7a481fa68f4cea97"
+  _md5sum = "9e2204891ff75e6f356bdd61d2c32647"
   _type = "NatRosPkg/forcePlates"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """int32 nForcePlates
@@ -18,7 +18,7 @@ forcePlate[] forcePlates
 MSG: NatRosPkg/forcePlate
 int32 id
 int32 nChannels 
-int32 params
+int16 params
 channel[] channels
 ================================================================================
 MSG: NatRosPkg/channel
@@ -73,7 +73,7 @@ bool isPartial
       buff.write(_struct_I.pack(length))
       for val1 in self.forcePlates:
         _x = val1
-        buff.write(_get_struct_3i().pack(_x.id, _x.nChannels, _x.params))
+        buff.write(_get_struct_2ih().pack(_x.id, _x.nChannels, _x.params))
         length = len(val1.channels)
         buff.write(_struct_I.pack(length))
         for val2 in val1.channels:
@@ -110,8 +110,8 @@ bool isPartial
         val1 = NatRosPkg.msg.forcePlate()
         _x = val1
         start = end
-        end += 12
-        (_x.id, _x.nChannels, _x.params,) = _get_struct_3i().unpack(str[start:end])
+        end += 10
+        (_x.id, _x.nChannels, _x.params,) = _get_struct_2ih().unpack(str[start:end])
         start = end
         end += 4
         (length,) = _struct_I.unpack(str[start:end])
@@ -155,7 +155,7 @@ bool isPartial
       buff.write(_struct_I.pack(length))
       for val1 in self.forcePlates:
         _x = val1
-        buff.write(_get_struct_3i().pack(_x.id, _x.nChannels, _x.params))
+        buff.write(_get_struct_2ih().pack(_x.id, _x.nChannels, _x.params))
         length = len(val1.channels)
         buff.write(_struct_I.pack(length))
         for val2 in val1.channels:
@@ -193,8 +193,8 @@ bool isPartial
         val1 = NatRosPkg.msg.forcePlate()
         _x = val1
         start = end
-        end += 12
-        (_x.id, _x.nChannels, _x.params,) = _get_struct_3i().unpack(str[start:end])
+        end += 10
+        (_x.id, _x.nChannels, _x.params,) = _get_struct_2ih().unpack(str[start:end])
         start = end
         end += 4
         (length,) = _struct_I.unpack(str[start:end])
@@ -234,12 +234,12 @@ def _get_struct_2B():
     if _struct_2B is None:
         _struct_2B = struct.Struct("<2B")
     return _struct_2B
-_struct_3i = None
-def _get_struct_3i():
-    global _struct_3i
-    if _struct_3i is None:
-        _struct_3i = struct.Struct("<3i")
-    return _struct_3i
+_struct_2ih = None
+def _get_struct_2ih():
+    global _struct_2ih
+    if _struct_2ih is None:
+        _struct_2ih = struct.Struct("<2ih")
+    return _struct_2ih
 _struct_i = None
 def _get_struct_i():
     global _struct_i

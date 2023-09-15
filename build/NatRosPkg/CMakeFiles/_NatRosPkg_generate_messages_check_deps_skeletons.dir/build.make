@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/ahalab/NatRos/build
 include NatRosPkg/CMakeFiles/_NatRosPkg_generate_messages_check_deps_skeletons.dir/progress.make
 
 NatRosPkg/CMakeFiles/_NatRosPkg_generate_messages_check_deps_skeletons:
-	cd /home/ahalab/NatRos/build/NatRosPkg && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py NatRosPkg /home/ahalab/NatRos/src/NatRosPkg/msg/skeletons.msg NatRosPkg/skeleton:geometry_msgs/Point:geometry_msgs/Pose:NatRosPkg/body:geometry_msgs/Quaternion
+	cd /home/ahalab/NatRos/build/NatRosPkg && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py NatRosPkg /home/ahalab/NatRos/src/NatRosPkg/msg/skeletons.msg geometry_msgs/Quaternion:geometry_msgs/Pose:NatRosPkg/body:geometry_msgs/Point:NatRosPkg/skeleton
 
 _NatRosPkg_generate_messages_check_deps_skeletons: NatRosPkg/CMakeFiles/_NatRosPkg_generate_messages_check_deps_skeletons
 _NatRosPkg_generate_messages_check_deps_skeletons: NatRosPkg/CMakeFiles/_NatRosPkg_generate_messages_check_deps_skeletons.dir/build.make

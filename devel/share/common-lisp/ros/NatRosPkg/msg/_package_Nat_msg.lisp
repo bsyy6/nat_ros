@@ -13,12 +13,14 @@
           NAT_SERVER_TIMECODE
           NAT_SERVER_FRAMEID-VAL
           NAT_SERVER_FRAMEID
+          MARKERS-VAL
+          MARKERS
           BODIES-VAL
           BODIES
           SKELETONS-VAL
           SKELETONS
           DEVICES-VAL
           DEVICES
-          MARKERS-VAL
-          MARKERS
+          FORCEPLATES-VAL
+          FORCEPLATES
 ))

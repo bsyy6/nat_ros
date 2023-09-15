@@ -19,7 +19,7 @@ add_custom_target(NatRosPkg_generate_messages ALL)
 
 get_filename_component(_filename "/home/ahalab/NatRos/src/NatRosPkg/msg/Nat_msg.msg" NAME_WE)
 add_custom_target(_NatRosPkg_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "NatRosPkg" "/home/ahalab/NatRos/src/NatRosPkg/msg/Nat_msg.msg" "NatRosPkg/skeleton:NatRosPkg/markers:NatRosPkg/skeletons:NatRosPkg/channel:NatRosPkg/bodies:NatRosPkg/devices:std_msgs/Header:NatRosPkg/marker:geometry_msgs/Point:geometry_msgs/Pose:NatRosPkg/body:geometry_msgs/Quaternion:NatRosPkg/device"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "NatRosPkg" "/home/ahalab/NatRos/src/NatRosPkg/msg/Nat_msg.msg" "NatRosPkg/device:NatRosPkg/markers:NatRosPkg/marker:geometry_msgs/Quaternion:geometry_msgs/Pose:NatRosPkg/skeletons:NatRosPkg/body:geometry_msgs/Point:NatRosPkg/devices:NatRosPkg/skeleton:NatRosPkg/channel:std_msgs/Header:NatRosPkg/bodies"
 )
 
 get_filename_component(_filename "/home/ahalab/NatRos/src/NatRosPkg/msg/bodies.msg" NAME_WE)
@@ -64,7 +64,7 @@ add_custom_target(_NatRosPkg_generate_messages_check_deps_${_filename}
 
 get_filename_component(_filename "/home/ahalab/NatRos/src/NatRosPkg/msg/markers.msg" NAME_WE)
 add_custom_target(_NatRosPkg_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "NatRosPkg" "/home/ahalab/NatRos/src/NatRosPkg/msg/markers.msg" "NatRosPkg/marker:geometry_msgs/Point"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "NatRosPkg" "/home/ahalab/NatRos/src/NatRosPkg/msg/markers.msg" "geometry_msgs/Point:NatRosPkg/marker"
 )
 
 get_filename_component(_filename "/home/ahalab/NatRos/src/NatRosPkg/msg/skeleton.msg" NAME_WE)
@@ -74,7 +74,7 @@ add_custom_target(_NatRosPkg_generate_messages_check_deps_${_filename}
 
 get_filename_component(_filename "/home/ahalab/NatRos/src/NatRosPkg/msg/skeletons.msg" NAME_WE)
 add_custom_target(_NatRosPkg_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "NatRosPkg" "/home/ahalab/NatRos/src/NatRosPkg/msg/skeletons.msg" "NatRosPkg/skeleton:geometry_msgs/Point:geometry_msgs/Pose:NatRosPkg/body:geometry_msgs/Quaternion"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "NatRosPkg" "/home/ahalab/NatRos/src/NatRosPkg/msg/skeletons.msg" "geometry_msgs/Quaternion:geometry_msgs/Pose:NatRosPkg/body:geometry_msgs/Point:NatRosPkg/skeleton"
 )
 
 #
@@ -86,7 +86,7 @@ add_custom_target(_NatRosPkg_generate_messages_check_deps_${_filename}
 _generate_msg_cpp(NatRosPkg
   "/home/ahalab/NatRos/src/NatRosPkg/msg/Nat_msg.msg"
   "${MSG_I_FLAGS}"
-  "/home/ahalab/NatRos/src/NatRosPkg/msg/skeleton.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/markers.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/skeletons.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/channel.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/bodies.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/devices.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/marker.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/body.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/device.msg"
+  "/home/ahalab/NatRos/src/NatRosPkg/msg/device.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/markers.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/marker.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/skeletons.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/body.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/devices.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/skeleton.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/channel.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/bodies.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/NatRosPkg
 )
 _generate_msg_cpp(NatRosPkg
@@ -140,7 +140,7 @@ _generate_msg_cpp(NatRosPkg
 _generate_msg_cpp(NatRosPkg
   "/home/ahalab/NatRos/src/NatRosPkg/msg/markers.msg"
   "${MSG_I_FLAGS}"
-  "/home/ahalab/NatRos/src/NatRosPkg/msg/marker.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/marker.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/NatRosPkg
 )
 _generate_msg_cpp(NatRosPkg
@@ -152,7 +152,7 @@ _generate_msg_cpp(NatRosPkg
 _generate_msg_cpp(NatRosPkg
   "/home/ahalab/NatRos/src/NatRosPkg/msg/skeletons.msg"
   "${MSG_I_FLAGS}"
-  "/home/ahalab/NatRos/src/NatRosPkg/msg/skeleton.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/body.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/body.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/skeleton.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/NatRosPkg
 )
 
@@ -207,7 +207,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS NatRosPkg_generate_messages_cpp)
 _generate_msg_eus(NatRosPkg
   "/home/ahalab/NatRos/src/NatRosPkg/msg/Nat_msg.msg"
   "${MSG_I_FLAGS}"
-  "/home/ahalab/NatRos/src/NatRosPkg/msg/skeleton.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/markers.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/skeletons.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/channel.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/bodies.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/devices.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/marker.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/body.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/device.msg"
+  "/home/ahalab/NatRos/src/NatRosPkg/msg/device.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/markers.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/marker.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/skeletons.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/body.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/devices.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/skeleton.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/channel.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/bodies.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/NatRosPkg
 )
 _generate_msg_eus(NatRosPkg
@@ -261,7 +261,7 @@ _generate_msg_eus(NatRosPkg
 _generate_msg_eus(NatRosPkg
   "/home/ahalab/NatRos/src/NatRosPkg/msg/markers.msg"
   "${MSG_I_FLAGS}"
-  "/home/ahalab/NatRos/src/NatRosPkg/msg/marker.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/marker.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/NatRosPkg
 )
 _generate_msg_eus(NatRosPkg
@@ -273,7 +273,7 @@ _generate_msg_eus(NatRosPkg
 _generate_msg_eus(NatRosPkg
   "/home/ahalab/NatRos/src/NatRosPkg/msg/skeletons.msg"
   "${MSG_I_FLAGS}"
-  "/home/ahalab/NatRos/src/NatRosPkg/msg/skeleton.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/body.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/body.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/skeleton.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/NatRosPkg
 )
 
@@ -328,7 +328,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS NatRosPkg_generate_messages_eus)
 _generate_msg_lisp(NatRosPkg
   "/home/ahalab/NatRos/src/NatRosPkg/msg/Nat_msg.msg"
   "${MSG_I_FLAGS}"
-  "/home/ahalab/NatRos/src/NatRosPkg/msg/skeleton.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/markers.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/skeletons.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/channel.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/bodies.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/devices.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/marker.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/body.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/device.msg"
+  "/home/ahalab/NatRos/src/NatRosPkg/msg/device.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/markers.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/marker.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/skeletons.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/body.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/devices.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/skeleton.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/channel.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/bodies.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/NatRosPkg
 )
 _generate_msg_lisp(NatRosPkg
@@ -382,7 +382,7 @@ _generate_msg_lisp(NatRosPkg
 _generate_msg_lisp(NatRosPkg
   "/home/ahalab/NatRos/src/NatRosPkg/msg/markers.msg"
   "${MSG_I_FLAGS}"
-  "/home/ahalab/NatRos/src/NatRosPkg/msg/marker.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/marker.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/NatRosPkg
 )
 _generate_msg_lisp(NatRosPkg
@@ -394,7 +394,7 @@ _generate_msg_lisp(NatRosPkg
 _generate_msg_lisp(NatRosPkg
   "/home/ahalab/NatRos/src/NatRosPkg/msg/skeletons.msg"
   "${MSG_I_FLAGS}"
-  "/home/ahalab/NatRos/src/NatRosPkg/msg/skeleton.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/body.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/body.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/skeleton.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/NatRosPkg
 )
 
@@ -449,7 +449,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS NatRosPkg_generate_messages_lisp)
 _generate_msg_nodejs(NatRosPkg
   "/home/ahalab/NatRos/src/NatRosPkg/msg/Nat_msg.msg"
   "${MSG_I_FLAGS}"
-  "/home/ahalab/NatRos/src/NatRosPkg/msg/skeleton.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/markers.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/skeletons.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/channel.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/bodies.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/devices.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/marker.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/body.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/device.msg"
+  "/home/ahalab/NatRos/src/NatRosPkg/msg/device.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/markers.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/marker.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/skeletons.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/body.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/devices.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/skeleton.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/channel.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/bodies.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/NatRosPkg
 )
 _generate_msg_nodejs(NatRosPkg
@@ -503,7 +503,7 @@ _generate_msg_nodejs(NatRosPkg
 _generate_msg_nodejs(NatRosPkg
   "/home/ahalab/NatRos/src/NatRosPkg/msg/markers.msg"
   "${MSG_I_FLAGS}"
-  "/home/ahalab/NatRos/src/NatRosPkg/msg/marker.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/marker.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/NatRosPkg
 )
 _generate_msg_nodejs(NatRosPkg
@@ -515,7 +515,7 @@ _generate_msg_nodejs(NatRosPkg
 _generate_msg_nodejs(NatRosPkg
   "/home/ahalab/NatRos/src/NatRosPkg/msg/skeletons.msg"
   "${MSG_I_FLAGS}"
-  "/home/ahalab/NatRos/src/NatRosPkg/msg/skeleton.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/body.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/body.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/skeleton.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/NatRosPkg
 )
 
@@ -570,7 +570,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS NatRosPkg_generate_messages_nodejs)
 _generate_msg_py(NatRosPkg
   "/home/ahalab/NatRos/src/NatRosPkg/msg/Nat_msg.msg"
   "${MSG_I_FLAGS}"
-  "/home/ahalab/NatRos/src/NatRosPkg/msg/skeleton.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/markers.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/skeletons.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/channel.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/bodies.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/devices.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/marker.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/body.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/device.msg"
+  "/home/ahalab/NatRos/src/NatRosPkg/msg/device.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/markers.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/marker.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/skeletons.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/body.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/devices.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/skeleton.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/channel.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/bodies.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/NatRosPkg
 )
 _generate_msg_py(NatRosPkg
@@ -624,7 +624,7 @@ _generate_msg_py(NatRosPkg
 _generate_msg_py(NatRosPkg
   "/home/ahalab/NatRos/src/NatRosPkg/msg/markers.msg"
   "${MSG_I_FLAGS}"
-  "/home/ahalab/NatRos/src/NatRosPkg/msg/marker.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/marker.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/NatRosPkg
 )
 _generate_msg_py(NatRosPkg
@@ -636,7 +636,7 @@ _generate_msg_py(NatRosPkg
 _generate_msg_py(NatRosPkg
   "/home/ahalab/NatRos/src/NatRosPkg/msg/skeletons.msg"
   "${MSG_I_FLAGS}"
-  "/home/ahalab/NatRos/src/NatRosPkg/msg/skeleton.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/body.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/body.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/ahalab/NatRos/src/NatRosPkg/msg/skeleton.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/NatRosPkg
 )
 

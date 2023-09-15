@@ -46,7 +46,7 @@ struct forcePlate_
    typedef int32_t _nChannels_type;
   _nChannels_type nChannels;
 
-   typedef int32_t _params_type;
+   typedef int16_t _params_type;
   _params_type params;
 
    typedef std::vector< ::NatRosPkg::channel_<ContainerAllocator> , typename std::allocator_traits<ContainerAllocator>::template rebind_alloc< ::NatRosPkg::channel_<ContainerAllocator> >> _channels_type;
@@ -141,12 +141,12 @@ struct MD5Sum< ::NatRosPkg::forcePlate_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "ba32a990eacf3db4288fb39df5caa8c8";
+    return "78b6575faa3bd78870aadb6231f51303";
   }
 
   static const char* value(const ::NatRosPkg::forcePlate_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xba32a990eacf3db4ULL;
-  static const uint64_t static_value2 = 0x288fb39df5caa8c8ULL;
+  static const uint64_t static_value1 = 0x78b6575faa3bd788ULL;
+  static const uint64_t static_value2 = 0x70aadb6231f51303ULL;
 };
 
 template<class ContainerAllocator>
@@ -167,7 +167,7 @@ struct Definition< ::NatRosPkg::forcePlate_<ContainerAllocator> >
   {
     return "int32 id\n"
 "int32 nChannels \n"
-"int32 params\n"
+"int16 params\n"
 "channel[] channels\n"
 "================================================================================\n"
 "MSG: NatRosPkg/channel\n"
@@ -220,7 +220,7 @@ struct Printer< ::NatRosPkg::forcePlate_<ContainerAllocator> >
     s << indent << "nChannels: ";
     Printer<int32_t>::stream(s, indent + "  ", v.nChannels);
     s << indent << "params: ";
-    Printer<int32_t>::stream(s, indent + "  ", v.params);
+    Printer<int16_t>::stream(s, indent + "  ", v.params);
     s << indent << "channels[]" << std::endl;
     for (size_t i = 0; i < v.channels.size(); ++i)
     {

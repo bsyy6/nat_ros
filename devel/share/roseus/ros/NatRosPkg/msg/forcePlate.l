@@ -53,8 +53,8 @@
     4
     ;; int32 _nChannels
     4
-    ;; int32 _params
-    4
+    ;; int16 _params
+    2
     ;; NatRosPkg/channel[] _channels
     (apply #'+ (send-all _channels :serialization-length)) 4
     ))
@@ -66,8 +66,8 @@
        (write-long _id s)
      ;; int32 _nChannels
        (write-long _nChannels s)
-     ;; int32 _params
-       (write-long _params s)
+     ;; int16 _params
+       (write-word _params s)
      ;; NatRosPkg/channel[] _channels
      (write-long (length _channels) s)
      (dolist (elem _channels)
@@ -81,8 +81,8 @@
      (setq _id (sys::peek buf ptr- :integer)) (incf ptr- 4)
    ;; int32 _nChannels
      (setq _nChannels (sys::peek buf ptr- :integer)) (incf ptr- 4)
-   ;; int32 _params
-     (setq _params (sys::peek buf ptr- :integer)) (incf ptr- 4)
+   ;; int16 _params
+     (setq _params (sys::peek buf ptr- :short)) (incf ptr- 2)
    ;; NatRosPkg/channel[] _channels
    (let (n)
      (setq n (sys::peek buf ptr- :integer)) (incf ptr- 4)
@@ -94,12 +94,12 @@
    self)
   )
 
-(setf (get NatRosPkg::forcePlate :md5sum-) "ba32a990eacf3db4288fb39df5caa8c8")
+(setf (get NatRosPkg::forcePlate :md5sum-) "78b6575faa3bd78870aadb6231f51303")
 (setf (get NatRosPkg::forcePlate :datatype-) "NatRosPkg/forcePlate")
 (setf (get NatRosPkg::forcePlate :definition-)
       "int32 id
 int32 nChannels 
-int32 params
+int16 params
 channel[] channels
 ================================================================================
 MSG: NatRosPkg/channel
@@ -112,6 +112,6 @@ bool isPartial
 
 
 
-(provide :NatRosPkg/forcePlate "ba32a990eacf3db4288fb39df5caa8c8")
+(provide :NatRosPkg/forcePlate "78b6575faa3bd78870aadb6231f51303")
 
 

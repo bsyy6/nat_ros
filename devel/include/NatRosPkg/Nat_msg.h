@@ -16,10 +16,11 @@
 #include <ros/message_operations.h>
 
 #include <std_msgs/Header.h>
+#include <NatRosPkg/markers.h>
 #include <NatRosPkg/bodies.h>
 #include <NatRosPkg/skeletons.h>
 #include <NatRosPkg/devices.h>
-#include <NatRosPkg/markers.h>
+#include <NatRosPkg/devices.h>
 
 namespace NatRosPkg
 {
@@ -36,10 +37,11 @@ struct Nat_msg_
     , Nat_server_timeStamp(0.0)
     , Nat_server_timeCode()
     , Nat_server_frameID(0)
+    , markers()
     , bodies()
     , skeletons()
     , devices()
-    , markers()  {
+    , forcePlates()  {
     }
   Nat_msg_(const ContainerAllocator& _alloc)
     : header(_alloc)
@@ -49,10 +51,11 @@ struct Nat_msg_
     , Nat_server_timeStamp(0.0)
     , Nat_server_timeCode(_alloc)
     , Nat_server_frameID(0)
+    , markers(_alloc)
     , bodies(_alloc)
     , skeletons(_alloc)
     , devices(_alloc)
-    , markers(_alloc)  {
+    , forcePlates(_alloc)  {
   (void)_alloc;
     }
 
@@ -79,6 +82,9 @@ struct Nat_msg_
    typedef int32_t _Nat_server_frameID_type;
   _Nat_server_frameID_type Nat_server_frameID;
 
+   typedef  ::NatRosPkg::markers_<ContainerAllocator>  _markers_type;
+  _markers_type markers;
+
    typedef  ::NatRosPkg::bodies_<ContainerAllocator>  _bodies_type;
   _bodies_type bodies;
 
@@ -88,8 +94,8 @@ struct Nat_msg_
    typedef  ::NatRosPkg::devices_<ContainerAllocator>  _devices_type;
   _devices_type devices;
 
-   typedef  ::NatRosPkg::markers_<ContainerAllocator>  _markers_type;
-  _markers_type markers;
+   typedef  ::NatRosPkg::devices_<ContainerAllocator>  _forcePlates_type;
+  _forcePlates_type forcePlates;
 
 
 
@@ -127,10 +133,11 @@ bool operator==(const ::NatRosPkg::Nat_msg_<ContainerAllocator1> & lhs, const ::
     lhs.Nat_server_timeStamp == rhs.Nat_server_timeStamp &&
     lhs.Nat_server_timeCode == rhs.Nat_server_timeCode &&
     lhs.Nat_server_frameID == rhs.Nat_server_frameID &&
+    lhs.markers == rhs.markers &&
     lhs.bodies == rhs.bodies &&
     lhs.skeletons == rhs.skeletons &&
     lhs.devices == rhs.devices &&
-    lhs.markers == rhs.markers;
+    lhs.forcePlates == rhs.forcePlates;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -187,12 +194,12 @@ struct MD5Sum< ::NatRosPkg::Nat_msg_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "28ff3ba526904bef9489d112dfa437c3";
+    return "9aee2c807a0b367d51433da0cfa4687e";
   }
 
   static const char* value(const ::NatRosPkg::Nat_msg_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x28ff3ba526904befULL;
-  static const uint64_t static_value2 = 0x9489d112dfa437c3ULL;
+  static const uint64_t static_value1 = 0x9aee2c807a0b367dULL;
+  static const uint64_t static_value2 = 0x51433da0cfa4687eULL;
 };
 
 template<class ContainerAllocator>
@@ -222,11 +229,11 @@ struct Definition< ::NatRosPkg::Nat_msg_<ContainerAllocator> >
 "\n"
 "int32 Nat_server_frameID\n"
 "\n"
+"markers markers\n"
 "bodies bodies\n"
 "skeletons skeletons\n"
 "devices devices\n"
-"markers markers\n"
-"\n"
+"devices forcePlates\n"
 "================================================================================\n"
 "MSG: std_msgs/Header\n"
 "# Standard metadata for higher-level stamped data types.\n"
@@ -242,6 +249,33 @@ struct Definition< ::NatRosPkg::Nat_msg_<ContainerAllocator> >
 "time stamp\n"
 "#Frame this data is associated with\n"
 "string frame_id\n"
+"\n"
+"================================================================================\n"
+"MSG: NatRosPkg/markers\n"
+"int32 nMarkers\n"
+"marker[] markers\n"
+"================================================================================\n"
+"MSG: NatRosPkg/marker\n"
+"int32 ID\n"
+"int32 modelID\n"
+"geometry_msgs/Point position\n"
+"float64 size\n"
+"int16 params\n"
+"float64 residual\n"
+"\n"
+"\n"
+"bool oclluded \n"
+"bool PCSolved \n"
+"bool ModelSolved \n"
+"bool HasModel \n"
+"bool Unlabled \n"
+"bool ActiveMarker \n"
+"================================================================================\n"
+"MSG: geometry_msgs/Point\n"
+"# This contains the position of a point in free space\n"
+"float64 x\n"
+"float64 y\n"
+"float64 z\n"
 "\n"
 "================================================================================\n"
 "MSG: NatRosPkg/bodies\n"
@@ -264,13 +298,6 @@ struct Definition< ::NatRosPkg::Nat_msg_<ContainerAllocator> >
 "# A representation of pose in free space, composed of position and orientation. \n"
 "Point position\n"
 "Quaternion orientation\n"
-"\n"
-"================================================================================\n"
-"MSG: geometry_msgs/Point\n"
-"# This contains the position of a point in free space\n"
-"float64 x\n"
-"float64 y\n"
-"float64 z\n"
 "\n"
 "================================================================================\n"
 "MSG: geometry_msgs/Quaternion\n"
@@ -307,27 +334,6 @@ struct Definition< ::NatRosPkg::Nat_msg_<ContainerAllocator> >
 "float64[] Values\n"
 "bool isEmpty\n"
 "bool isPartial\n"
-"\n"
-"================================================================================\n"
-"MSG: NatRosPkg/markers\n"
-"int32 nMarkers\n"
-"marker[] markers\n"
-"================================================================================\n"
-"MSG: NatRosPkg/marker\n"
-"int32 ID\n"
-"int32 modelID\n"
-"geometry_msgs/Point position\n"
-"float64 size\n"
-"int16 params\n"
-"float64 residual\n"
-"\n"
-"\n"
-"bool oclluded \n"
-"bool PCSolved \n"
-"bool ModelSolved \n"
-"bool HasModel \n"
-"bool Unlabled \n"
-"bool ActiveMarker \n"
 ;
   }
 
@@ -353,10 +359,11 @@ namespace serialization
       stream.next(m.Nat_server_timeStamp);
       stream.next(m.Nat_server_timeCode);
       stream.next(m.Nat_server_frameID);
+      stream.next(m.markers);
       stream.next(m.bodies);
       stream.next(m.skeletons);
       stream.next(m.devices);
-      stream.next(m.markers);
+      stream.next(m.forcePlates);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -390,6 +397,9 @@ struct Printer< ::NatRosPkg::Nat_msg_<ContainerAllocator> >
     Printer<std::basic_string<char, std::char_traits<char>, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<char>>>::stream(s, indent + "  ", v.Nat_server_timeCode);
     s << indent << "Nat_server_frameID: ";
     Printer<int32_t>::stream(s, indent + "  ", v.Nat_server_frameID);
+    s << indent << "markers: ";
+    s << std::endl;
+    Printer< ::NatRosPkg::markers_<ContainerAllocator> >::stream(s, indent + "  ", v.markers);
     s << indent << "bodies: ";
     s << std::endl;
     Printer< ::NatRosPkg::bodies_<ContainerAllocator> >::stream(s, indent + "  ", v.bodies);
@@ -399,9 +409,9 @@ struct Printer< ::NatRosPkg::Nat_msg_<ContainerAllocator> >
     s << indent << "devices: ";
     s << std::endl;
     Printer< ::NatRosPkg::devices_<ContainerAllocator> >::stream(s, indent + "  ", v.devices);
-    s << indent << "markers: ";
+    s << indent << "forcePlates: ";
     s << std::endl;
-    Printer< ::NatRosPkg::markers_<ContainerAllocator> >::stream(s, indent + "  ", v.markers);
+    Printer< ::NatRosPkg::devices_<ContainerAllocator> >::stream(s, indent + "  ", v.forcePlates);
   }
 };
 

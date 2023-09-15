@@ -72,7 +72,7 @@
    self)
   )
 
-(setf (get NatRosPkg::forcePlates :md5sum-) "d6f3fd8a71f67b5c7a481fa68f4cea97")
+(setf (get NatRosPkg::forcePlates :md5sum-) "9e2204891ff75e6f356bdd61d2c32647")
 (setf (get NatRosPkg::forcePlates :datatype-) "NatRosPkg/forcePlates")
 (setf (get NatRosPkg::forcePlates :definition-)
       "int32 nForcePlates
@@ -81,7 +81,7 @@ forcePlate[] forcePlates
 MSG: NatRosPkg/forcePlate
 int32 id
 int32 nChannels 
-int32 params
+int16 params
 channel[] channels
 ================================================================================
 MSG: NatRosPkg/channel
@@ -94,6 +94,6 @@ bool isPartial
 
 
 
-(provide :NatRosPkg/forcePlates "d6f3fd8a71f67b5c7a481fa68f4cea97")
+(provide :NatRosPkg/forcePlates "9e2204891ff75e6f356bdd61d2c32647")
 
 

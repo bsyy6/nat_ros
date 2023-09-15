@@ -82,7 +82,7 @@ class forcePlates {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return 'd6f3fd8a71f67b5c7a481fa68f4cea97';
+    return '9e2204891ff75e6f356bdd61d2c32647';
   }
 
   static messageDefinition() {
@@ -94,7 +94,7 @@ class forcePlates {
     MSG: NatRosPkg/forcePlate
     int32 id
     int32 nChannels 
-    int32 params
+    int16 params
     channel[] channels
     ================================================================================
     MSG: NatRosPkg/channel

@@ -59,7 +59,7 @@ class forcePlate {
     // Serialize message field [nChannels]
     bufferOffset = _serializer.int32(obj.nChannels, buffer, bufferOffset);
     // Serialize message field [params]
-    bufferOffset = _serializer.int32(obj.params, buffer, bufferOffset);
+    bufferOffset = _serializer.int16(obj.params, buffer, bufferOffset);
     // Serialize message field [channels]
     // Serialize the length for message field [channels]
     bufferOffset = _serializer.uint32(obj.channels.length, buffer, bufferOffset);
@@ -78,7 +78,7 @@ class forcePlate {
     // Deserialize message field [nChannels]
     data.nChannels = _deserializer.int32(buffer, bufferOffset);
     // Deserialize message field [params]
-    data.params = _deserializer.int32(buffer, bufferOffset);
+    data.params = _deserializer.int16(buffer, bufferOffset);
     // Deserialize message field [channels]
     // Deserialize array length for message field [channels]
     len = _deserializer.uint32(buffer, bufferOffset);
@@ -94,7 +94,7 @@ class forcePlate {
     object.channels.forEach((val) => {
       length += channel.getMessageSize(val);
     });
-    return length + 16;
+    return length + 14;
   }
 
   static datatype() {
@@ -104,7 +104,7 @@ class forcePlate {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return 'ba32a990eacf3db4288fb39df5caa8c8';
+    return '78b6575faa3bd78870aadb6231f51303';
   }
 
   static messageDefinition() {
@@ -112,7 +112,7 @@ class forcePlate {
     return `
     int32 id
     int32 nChannels 
-    int32 params
+    int16 params
     channel[] channels
     ================================================================================
     MSG: NatRosPkg/channel

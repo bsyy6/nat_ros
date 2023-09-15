@@ -1,4 +1,4 @@
 int32 id
 int32 nChannels 
-int32 params
+int16 params
 channel[] channels

@@ -15,10 +15,10 @@
 
 #include <NatRosPkg/channel.h>
 
-#include <NatRosPkg/device.h>
-#include <NatRosPkg/devices.h>
-
 #include <NatRosPkg/forcePlate.h>
 #include <NatRosPkg/forcePlates.h>
+
+#include <NatRosPkg/device.h>
+#include <NatRosPkg/devices.h>
 
 #endif // NatNET_ROS_MSGS_H

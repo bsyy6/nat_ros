@@ -9,7 +9,8 @@ string Nat_server_timeCode
 
 int32 Nat_server_frameID
 
+markers markers
 bodies bodies
 skeletons skeletons
 devices devices
-markers markers
+devices forcePlates

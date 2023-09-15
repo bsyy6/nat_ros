@@ -129,12 +129,12 @@ struct MD5Sum< ::NatRosPkg::forcePlates_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "d6f3fd8a71f67b5c7a481fa68f4cea97";
+    return "9e2204891ff75e6f356bdd61d2c32647";
   }
 
   static const char* value(const ::NatRosPkg::forcePlates_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xd6f3fd8a71f67b5cULL;
-  static const uint64_t static_value2 = 0x7a481fa68f4cea97ULL;
+  static const uint64_t static_value1 = 0x9e2204891ff75e6fULL;
+  static const uint64_t static_value2 = 0x356bdd61d2c32647ULL;
 };
 
 template<class ContainerAllocator>
@@ -159,7 +159,7 @@ struct Definition< ::NatRosPkg::forcePlates_<ContainerAllocator> >
 "MSG: NatRosPkg/forcePlate\n"
 "int32 id\n"
 "int32 nChannels \n"
-"int32 params\n"
+"int16 params\n"
 "channel[] channels\n"
 "================================================================================\n"
 "MSG: NatRosPkg/channel\n"

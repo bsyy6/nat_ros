@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/ahalab/NatRos/build
 include NatRosPkg/CMakeFiles/_NatRosPkg_generate_messages_check_deps_markers.dir/progress.make
 
 NatRosPkg/CMakeFiles/_NatRosPkg_generate_messages_check_deps_markers:
-	cd /home/ahalab/NatRos/build/NatRosPkg && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py NatRosPkg /home/ahalab/NatRos/src/NatRosPkg/msg/markers.msg NatRosPkg/marker:geometry_msgs/Point
+	cd /home/ahalab/NatRos/build/NatRosPkg && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py NatRosPkg /home/ahalab/NatRos/src/NatRosPkg/msg/markers.msg geometry_msgs/Point:NatRosPkg/marker
 
 _NatRosPkg_generate_messages_check_deps_markers: NatRosPkg/CMakeFiles/_NatRosPkg_generate_messages_check_deps_markers
 _NatRosPkg_generate_messages_check_deps_markers: NatRosPkg/CMakeFiles/_NatRosPkg_generate_messages_check_deps_markers.dir/build.make

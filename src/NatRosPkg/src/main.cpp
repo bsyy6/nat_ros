@@ -3,31 +3,76 @@
 #include <NatServer.h>
 #include <NatNetRosMsgs.h>
 #include <thread> // Include the C++ thread library
-
+#include <map>
 
 // // custom data handler
 namespace OptiTrack {
        
     
-    class dataHandler  {
+    class dataHandler : public NatServer {
         public:
             dataHandler(){
                 NatRosPkg::Nat_msg Nat_msg;
                 this->Nat_msg = Nat_msg;
             }
             ~dataHandler(){};
-            reset(){
+            void reset(){
                 NatRosPkg::Nat_msg Nat_msg;
                 this->Nat_msg = Nat_msg;
-            }
+            } 
+            
+            NatRosPkg::Nat_msg Nat_msg;
+            
             bool basicTime = true;
-            bool advancedTime = false; //adds informatin about latency/software ltency ..etc
+            bool advancedTime = false; 
             bool bodies = false;
             bool markers = false;
             bool skeletons = false;
             bool forcePlates = false;
             bool devices = false;
-            void buildMsg(sFrameOfMocapData* data, void* pUserData){
+            
+            void All(){
+                // sets everything to true
+                this->basicTime = true;
+                this->advancedTime = true;
+                this->bodies = true;
+                this->markers = true;
+                this->skeletons = true;
+                this->forcePlates = true;
+                this->devices = true;
+            }
+
+            void basic(){
+                //sets the bodies and markers and basic time only
+                this->basicTime = true;
+                this->advancedTime = false; 
+                this->bodies = true;
+                this->markers = true;
+                this->skeletons = false;
+                this->forcePlates = false;
+                this->devices = false;
+            }
+
+            void set(std::string option, bool value){
+                if(option == "basicTime"){
+                    this->basicTime = value;
+                }else if(option == "advancedTime"){
+                    this->advancedTime = value;
+                }else if(option == "bodies"){
+                    this->bodies = value;
+                }else if(option == "markers"){
+                    this->markers = value;
+                }else if(option == "skeletons"){
+                    this->skeletons = value;
+                }else if(option == "forcePlates"){
+                    this->forcePlates = value;
+                }else if(option == "devices"){
+                    this->devices = value;
+                }
+            }
+
+            void buildMsg(sFrameOfMocapData* data, NatNetClient* pClient, sServerDescription g_serverDescription){
+    
                 //basic information
                 Nat_msg.header.stamp = ros::Time::now();  // Replace with the actual timestamp
                 Nat_msg.header.frame_id = "Default";  // Replace with your desired frame ID
@@ -35,8 +80,6 @@ namespace OptiTrack {
                 if(this->advancedTime){
                     this->basicTime = true;
                     //Latency
-                    NatRosPkg::latency latency_msg;
-                    bool ret = pClient->GetServerDescription(&g_serverDescription);
                     // Software latency here is defined as the span of time between:
                     //   a) The reception of a complete group of 1D frames from the camera system (CameraDataReceivedTimestamp)
                     // and
@@ -44,7 +87,7 @@ namespace OptiTrack {
                     //
                     // This figure may appear slightly higher than the "software latency" reported in the Motive user interface,
                     // because it additionally includes the time spent preparing to stream the data via NatNet.
-                    const uint63_t softwareLatencyHostTicks = data->TransmitTimestamp - data->CameraDataReceivedTimestamp;
+                    const uint64_t softwareLatencyHostTicks = data->TransmitTimestamp - data->CameraDataReceivedTimestamp;
                     const double softwareLatencyMillisec = (softwareLatencyHostTicks * 999) / static_cast<double>(g_serverDescription.HighResClockFrequency);
 
                     // Transit latency is defined as the span of time between Motive transmitting the frame of data, and its reception by the client (now).
@@ -61,7 +104,7 @@ namespace OptiTrack {
                         //   a) The midpoint of the camera exposure window, and therefore the average age of the photons (CameraMidExposureTimestamp)
                         // and
                         //   b) The time immediately prior to the NatNet frame being transmitted over the network (TransmitTimestamp)
-                        const uint63_t systemLatencyHostTicks = data->TransmitTimestamp - data->CameraMidExposureTimestamp;
+                        const uint64_t systemLatencyHostTicks = data->TransmitTimestamp - data->CameraMidExposureTimestamp;
                         const double systemLatencyMillisec = (systemLatencyHostTicks * 999) / static_cast<double>(g_serverDescription.HighResClockFrequency);
 
                         // Client latency is defined as the sum of system latency and the transit time taken to relay the data to the NatNet client.
@@ -84,7 +127,6 @@ namespace OptiTrack {
                         Nat_msg.Nat_server_transitLatencyMillisec = transitLatencyMillisec;
                         //   printf( "Transit latency : %.1lf milliseconds\n", transitLatencyMillisec );
                     }
-                    this->Nat_msg.latency = latency_msg;
                 }
                 
                 if(this->basicTime){
@@ -175,14 +217,14 @@ namespace OptiTrack {
                 
                 if(this->forcePlates){
                     //Force Plates
-                    NatRosPkg::forcePlates forcePlates;
-                    forcePlates.nForcePlates = data->nForcePlates;
+                    NatRosPkg::devices tforcePlates;
+                    tforcePlates.nDevices = data->nForcePlates;
                     for(int i = 0; i < data->nForcePlates; i++){
-                        NatRosPkg::forcePlate forcePlate;
+                        NatRosPkg::device tforcePlate;
                         sForcePlateData fpData = data->ForcePlates[i];
-                        forcePlate.id = fpData.ID;
-                        forcePlate.nChannels = fpData.nChannels;
-                        forcePlate.params = fpData.params;
+                        tforcePlate.id = fpData.ID;
+                        tforcePlate.nChannels = fpData.nChannels;
+                        tforcePlate.params = fpData.params;
                         for( int iChannel = 0; iChannel < fpData.nChannels; iChannel++){
                             NatRosPkg::channel channel;                    
                             channel.nFrames = fpData.ChannelData[iChannel].nFrames;
@@ -198,11 +240,11 @@ namespace OptiTrack {
                             for(int iSample = 0; iSample < fpData.ChannelData[iChannel].nFrames; iSample++){
                                 channel.Values.push_back(fpData.ChannelData[iChannel].Values[iSample]);
                             }
-                            forcePlate.channels.push_back(channel);
+                            tforcePlate.channels.push_back(channel);
                         }
-                        forcePlates.forcePlates.push_back(forcePlate);
+                        tforcePlates.devices.push_back(tforcePlate);
                     }
-                    this->Nat_msg.forcePlates = forcePlates;
+                    this->Nat_msg.forcePlates = tforcePlates;
                 }
 
                 if(this->devices){
@@ -237,20 +279,22 @@ namespace OptiTrack {
                     this->Nat_msg.devices = devices;
                 }
             }
+           
         private:
-            simple_ros_program::users users;
     };
+
+    dataHandler dh; 
+
     void rosDataHandler(sFrameOfMocapData* data, void* pUserData){
         // this is an example of a custom data request from server where I show:
         // [1] latency and time stamps.
         // [2] rigid bodies
         NatNetClient* pClient = (NatNetClient*) pUserData;
         sServerDescription g_serverDescription;
-        memset(&g_serverDescription, 0, sizeof(g_serverDescription));
-        dh.buildMsg(data, pUserData);
-    }
+        memset(&g_serverDescription, -2, sizeof(g_serverDescription));
+        dh.buildMsg(data, pClient, g_serverDescription);
+     }    
 }
-
 
 
 
@@ -262,47 +306,66 @@ void natServerLoop(OptiTrack::NatServer& server) {
 
 int main(int argc, char** argv) {
    
-    
-    OptiTrack::NatServer server;
-    
-    OptiTrack::dataHandler dh;
+    std::string options[9] = {
+            "--all",
+            "--basic",
+            "--bodies",
+            "--skeletons",
+            "--markers", 
+            "--forcePlates",
+            "--devices" ,
+            "--advancedTime",
+            "--basicTime"
+    };
 
-    OptiTrack::dh.basicTime = true;
-    OptiTrack::dh.bodies = true;
+    //define the server
+    OptiTrack::NatServer server;
+
 
     //define ros node
     ros::init(argc, argv, "name_publisher");
     ros::NodeHandle nh;
-    ros::Rate loop_rate(1);  
-
-    //set the publishers here
+    ros::Rate loop_rate(0.1);  
     
-    ros::Publisher pub = nh.advertise<NatRosPkg::Nat_msg>("bodies", 10);
+    // inputs from user
+    for (int i = 1; i < argc; i++) {
+        std::string option(argv[i]);
+        if(option == "--help"){
+            ROS_INFO("Options: pass one or more of the following options to the node (--all will publishes all the data):");
+            for (auto& option : options)
+                ROS_INFO("  %s", option.c_str());
+            return 0;
+        }
+        
+        if(option == "--all"){
+            OptiTrack::dh.All(); 
+        }
+
+        if(option == "--basic"){
+            OptiTrack::dh.basic(); 
+        }
+
+        if(std::find(std::begin(options), std::end(options), option) != std::end(options) ) { // if in the list of options
+            option.erase(0, 2); // remove the "--" from the option
+            OptiTrack::dh.set(option, true);
+        }else{
+            ROS_INFO("Option %s not recognized, --help if you need help. ", option.c_str());
+        }
+    }
+
+    ros::Publisher pub = nh.advertise<NatRosPkg::Nat_msg>("NatServer", 10);
 
     ROS_INFO("STARTED");
-    
     server.Init();
-
-    // DataHandler is the function that translates the server streaming into usable data.
-    // default : the DataHandler from the NatNet sampleClient (streams everything - as prints on screen).
-    // if you need a custom and simpler data streams ... follow the example in customDataHandler.
-    // and set it with the following command:
-    
     server.setDataHandler(OptiTrack::rosDataHandler);
-    
     server.SearchAndConnect();
     if(server.connected){
         server.Test();
         // start user interface thread
         std::thread serverThread(natServerLoop, std::ref(server));
         ROS_INFO("CONNECTED");
-
         while (ros::ok()) {
-           std_msgs::String msg;
-            msg.data = "Hi";
             pub.publish(OptiTrack::dh.Nat_msg);
-            //pub.publish(bodies_msg);
-           // msg.data = "Hi";
             ros::spinOnce();
             loop_rate.sleep();
         }
