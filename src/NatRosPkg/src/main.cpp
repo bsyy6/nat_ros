@@ -221,10 +221,6 @@ int main(int argc, char** argv) {
     
     OptiTrack::NatServer server;
     
-    
-   
-    
-
     //define ros node
     ros::init(argc, argv, "name_publisher");
     ros::NodeHandle nh;
@@ -232,7 +228,7 @@ int main(int argc, char** argv) {
 
     //set the publishers here
     
-    ros::Publisher pub = nh.advertise<NatRosPkg::bodies>("bodies", 10);
+    ros::Publisher pub = nh.advertise<NatRosPkg::Nat_msg>("bodies", 10);
 
     ROS_INFO("STARTED");
     
@@ -243,9 +239,7 @@ int main(int argc, char** argv) {
     // if you need a custom and simpler data streams ... follow the example in customDataHandler.
     // and set it with the following command:
     
-    //  server.setDataHandler(OptiTrack::customDataHandler);
-    
-    //
+    server.setDataHandler(OptiTrack::rosDataHandler);
     
     server.SearchAndConnect();
     if(server.connected){
@@ -257,7 +251,7 @@ int main(int argc, char** argv) {
         while (ros::ok()) {
            std_msgs::String msg;
             msg.data = "Hi";
-            pub.publish(msg);
+            pub.publish(OptiTrack::Nat_msg);
             //pub.publish(bodies_msg);
            // msg.data = "Hi";
             ros::spinOnce();
