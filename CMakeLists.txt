@@ -25,10 +25,12 @@ generate_messages(
 catkin_package()
 
 include_directories(
+  include
  ${catkin_INCLUDE_DIRS}
  ${PROJECT_SOURCE_DIR}/include
  ${PROJECT_SOURCE_DIR}/msg
 )
+
 
 add_executable(name_publisher src/main.cpp src/NatServer.cpp )
 
