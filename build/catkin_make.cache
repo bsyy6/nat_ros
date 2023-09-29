@@ -1,2 +1,0 @@
-NatRosPkg
--DCATKIN_DEVEL_PREFIX=/home/ahalab/NatRos/devel -DCMAKE_INSTALL_PREFIX=/home/ahalab/NatRos/install -G Unix Makefiles
