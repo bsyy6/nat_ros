@@ -305,7 +305,6 @@ void natServerLoop(OptiTrack::NatServer& server) {
 // THIS IS THE MESSAGE GLOBAL VARIABLE
 
 int main(int argc, char** argv) {
-   
     std::string options[9] = {
             "--all",
             "--basic",
@@ -318,6 +317,10 @@ int main(int argc, char** argv) {
             "--basicTime"
     };
 
+    ROS_INFO("Options: pass one or more of the following options to the node (--all will publishes all the data):");
+    for (auto& option : options) ROS_INFO("  %s", option.c_str());
+   
+
     //define the server
     OptiTrack::NatServer server;
 
@@ -325,7 +328,7 @@ int main(int argc, char** argv) {
     //define ros node
     ros::init(argc, argv, "name_publisher");
     ros::NodeHandle nh;
-    ros::Rate loop_rate(0.1);  
+    ros::Rate loop_rate(300);  
     
     // inputs from user
     for (int i = 1; i < argc; i++) {
