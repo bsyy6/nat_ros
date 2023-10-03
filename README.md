@@ -4,7 +4,7 @@ work under progress
 
 expected release: end of October
 
-current status : works 100%, tested on ROS1 NOETIC, need to change some names and organize it better.
+current status : works, tested on ROS1 NOETIC, need to change some names and organize it better.
 
 current problems: [rare] it crashed due to overflow.
 
