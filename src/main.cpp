@@ -1,8 +1,8 @@
 #include <ros/ros.h>
 #include <std_msgs/String.h>
 #include <nat_ros/NatServer.h>
-#include <nat_ros/NatNetRosMsgs.h>
-#include <thread> // Include the C++ thread library
+#include <nat_ros/Nat_msg.h> // the custom message
+#include <thread> // two threads : 1 controlling the server, 2 Ros Publisher
 #include <map>
 
 // // custom data handler
