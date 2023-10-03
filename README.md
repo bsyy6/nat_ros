@@ -3,6 +3,13 @@
 work under progress 
 
 expected release: end of October
-current status : works, tested on ROS, need to change some names and organize it better.
 
-takes a NatServer message and parses it into ros type message.
+current status : works 100%, tested on ROS1 NOETIC, need to change some names and organize it better.
+
+current problems: [rare] it crashed due to overflow.
+
+
+What it does?
+runs a NatNet server client.
+takes the NatNet Server message and parses it into ros type message.
+
