@@ -1,7 +1,11 @@
 /* */
 #include "nat_ros/NatServer.h"
 
-
+#if defined(_WIN32) || defined(WIN32) 
+    #include<windows.h>
+#elif defined(__linux__) || defined(__APPLE__)
+    #include <unistd.h>
+#endif
 namespace OptiTrack {
     
     NatServer::NatServer(){}
@@ -27,11 +31,63 @@ namespace OptiTrack {
 
             NatNetDiscoveryHandle discovery;
             NatNet_CreateAsyncServerDiscovery( &discovery, ServerDiscoveredCallback);
-            while ( const int c = getch() )
+            
+            /* modified, connect automatically if only one server is available*/
+
+            sleep(1);
+
+            if(g_discoveredServers.size()==1){
+                
+                const size_t serverIndex = 0;
+                if ( serverIndex < g_discoveredServers.size() )
+                {
+                    const sNatNetDiscoveredServer& discoveredServer = g_discoveredServers[serverIndex];
+
+                    if ( discoveredServer.serverDescription.bConnectionInfoValid )
+                    {
+                        // Build the connection parameters.
+                        snprintf(
+                            g_discoveredMulticastGroupAddr, sizeof g_discoveredMulticastGroupAddr,
+                            "%" PRIu8 ".%" PRIu8".%" PRIu8".%" PRIu8"",
+                            discoveredServer.serverDescription.ConnectionMulticastAddress[0],
+                            discoveredServer.serverDescription.ConnectionMulticastAddress[1],
+                            discoveredServer.serverDescription.ConnectionMulticastAddress[2],
+                            discoveredServer.serverDescription.ConnectionMulticastAddress[3]
+                        );
+
+                        g_connectParams.connectionType = discoveredServer.serverDescription.ConnectionMulticast ? ConnectionType_Multicast : ConnectionType_Unicast;
+                        g_connectParams.serverCommandPort = discoveredServer.serverCommandPort;
+                        g_connectParams.serverDataPort = discoveredServer.serverDescription.ConnectionDataPort;
+                        g_connectParams.serverAddress = discoveredServer.serverAddress;
+                        g_connectParams.localAddress = discoveredServer.localAddress;
+                        g_connectParams.multicastAddress = g_discoveredMulticastGroupAddr;
+                    }
+                    else
+                    {
+                        // We're missing some info because it's a legacy server.
+                        // Guess the defaults and make a best effort attempt to connect.
+                        g_connectParams.connectionType = kDefaultConnectionType;
+                        g_connectParams.serverCommandPort = discoveredServer.serverCommandPort;
+                        g_connectParams.serverDataPort = 0;
+                        g_connectParams.serverAddress = discoveredServer.serverAddress;
+                        g_connectParams.localAddress = discoveredServer.localAddress;
+                        g_connectParams.multicastAddress = NULL;
+                    }
+                }
+                printf( "Single Server - connecting automatically.\n" );
+                NatNet_FreeAsyncServerDiscovery( discovery );
+                ConnectClient();
+                return 1;
+
+            }
+            
+
+            while ( const int c = getch())
             {
-                if ( c >= '1' && c <= '9' )
+                if ( (c >= '1' && c <= '9'))
                 {
                     const size_t serverIndex = c - '1';
+                    
                     if ( serverIndex < g_discoveredServers.size() )
                     {
                         const sNatNetDiscoveredServer& discoveredServer = g_discoveredServers[serverIndex];
